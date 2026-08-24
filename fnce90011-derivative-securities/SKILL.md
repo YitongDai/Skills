@@ -1,0 +1,64 @@
+---
+name: fnce90011-derivative-securities
+description: Work FNCE90011 Derivative Securities (Unimelb MFin) content — explain concepts, solve/check calculation questions, and draft exam-style answers on forwards & futures, hedging, cost-of-carry pricing, option payoffs & strategies, put-call parity, Black-Scholes, binomial trees (replication/delta-hedging/risk-neutral), and exotic options (lookback, Asian, Bermudan, ratchet, chooser, compound, barrier). Use when asked to review FNCE90011/DS lecture material, work through Questions1-5/SupplementaryQuestions, prep for the MST (40%, MCQ) or the final (60%, case-analysis, heavier and more conceptually subtle than the MST), or reconcile an answer against the course's Study Notes / Tutorial Materials / Formula Sheet.
+---
+
+# FNCE90011 Derivative Securities
+
+Unimelb MFin course, textbook *Options, Futures and Other Derivatives* (Hull). Grading: 40% MST (straightforward MCQ, cohort average ~80%), 60% final (case-analysis, much harder and more conceptually oblique than the MST — students consistently underestimate the jump). Course material lives in the connected course folder (paths below); pull the specific PDF/docx only when a question needs detail beyond this file.
+
+## Course folder map
+
+Base: `/Users/yitongdai/Desktop/Knowledge Base/Finance/Courses/Unimleb-FNCE 90011/`
+
+- `01_Lecture_Slides/slides 1-5.pdf` — primary content, one slide deck roughly covers 2 weeks
+- `02_Questions_and_Answers/Questions1-5.pdf` + `Answers1-2.pdf` + `SupplementaryQuestions_parta_2026.pdf` / `SupplementaryAnswers_parta_2026.pdf` — practice sets; `Generated_Answers/` has student study drafts for Q3-5
+- `03_Textbooks_and_Readings/Options Futures and Other Derivatives by John C Hull.PDF` — full textbook
+- `04_Study_Notes/` — condensed Chinese/English notes, incl. `FNCE90011_Chapters3-5_Reasoning_and_Midterm_Guide.docx`
+- `06_Tutorial_Materials_90011HD/FNCE90011-期末考点班.pdf` (final exam-point review, week-by-week, mirrors the content map below) and `FNCE90011-期末刷题课1-2.pdf` (practice)
+- `MST/FNCE90011 Formula Sheet.pdf`, `MST_Study_Guide.docx`, `MST_Cheat_Sheet.docx` — for the midterm specifically
+
+When a question needs a specific worked example or exact wording, stage and read the relevant file above rather than relying on this summary alone.
+
+## Content map (Week 1-11)
+
+| Week | Topic | Core ideas to check before answering |
+|---|---|---|
+| 1 | Intro to forwards/futures | Derivative = value derived from underlying, legally binding. OTC (forwards, swaps, credit derivatives — customized, high counterparty risk) vs organized exchange (futures, some options — standardized, clearinghouse, margin, low counterparty risk). Margin: initial vs maintenance (below → margin call), settlement price. Closing out = enter equal & opposite position; profit = (short price − long price) × qty. |
+| 2 | Hedging with forwards/futures | Long exposure: worse off if price falls. Short exposure: worse off if price rises. Short hedge = hedge a long exposure with a short forward; long hedge = hedge a short exposure with a long forward. Always work the 3 steps: (1) identify the underlying risk, (2) identify long/short exposure, (3) pick the hedge that gains when the exposure loses. |
+| 3 | Pricing forwards/futures | Arbitrage = zero cost today, no chance of loss, some chance of gain. Law of One Price: if payoffs are equal at T, prices must be equal at 0 (else buy the cheap one, sell the expensive one). **Replication is the pricing method**: a long forward ≡ borrow + buy the underlying today and hold to T. No-dividend asset: `F = S0 e^{rT}`. Asset with continuous carrying cost u (commodity): `F = S0 e^{(r+u)T}`. Currency (interest rate parity): `F = S0 e^{(r-r_f)T}` (S0, F quoted as domestic per 1 unit foreign). If quoted F ≠ theoretical F → build the arbitrage explicitly (long/short forward + offsetting borrow-and-buy or lend-and-short trade) rather than just stating the number is wrong. |
+| 4 | Option basics | Call = right to buy at K; put = right to sell at K. American = exercisable any time to expiry; European = only at expiry. Long call payoff `max(0, ST-K)`; long put payoff `max(0, K-ST)`; short side pays the mirror amount, never receives. In-the-money / out-of-the-money defined relative to ST vs K, separately for calls and puts. |
+| 5 | Hedging with options | Forwards/futures "lock in" a price — remove downside AND upside. Options remove downside while keeping upside, at the cost of the premium. FX hedge with options: buy a put on the currency you'll receive (protects against it weakening) or a call on the currency you'll pay (protects against it strengthening); compare payoff at both a favourable and unfavourable spot scenario to show the asymmetry vs a forward hedge. |
+| 6 | Option strategies | **Bull spread**: long call K1 + short call K2 (K2>K1), net debit, capped up/down, breakeven = K1+net cost. **Bear spread**: long put K1 + short put K2 (K1>K2), net debit, breakeven = K1−net cost. **Straddle** (long call + long put, same K): bet on big move, direction unknown; short straddle bets on low volatility. **Strip** (1 call + 2 puts) = bet down-move more likely; **strap** (2 calls + 1 put) = bet up-move more likely. **Strangle** = straddle with different strikes (K1<K2), cheaper, needs bigger move. **Butterfly** (long K1 + long K3, short 2×K2, K1<K2<K3) = bet on low volatility with limited downside (vs a short straddle). For every strategy: build the payoff as the sum of each leg's payoff, and always state breakeven and max gain/loss. |
+| 7 | Bounds, parity, Black-Scholes | Know the no-arbitrage option-price bounds (upper/lower) and be able to prove one via arbitrage if asked. **Put-call parity**: `C + Ke^{-rT} = P + S0` (no dividends) — derive via the 3-piece portfolio (long call, short stock, invest Ke^{-rT}) replicating a long put. Black-Scholes: `C = S0 N(d1) - Ke^{-rT} N(d2)`, `d1 = [ln(S0/K) + (r+σ²/2)T] / (σ√T)`, `d2 = d1 - σ√T`; put via parity. Know directional effect of each input (↑S0, ↑σ, ↑T → ↑C generally; ↑r → ↑C, ↓P; ↑K → ↓C, ↑P). Intrinsic value = payoff if exercised now (≥0, never negative); time value = price − intrinsic value. |
+| 8 | Binomial trees I | Three equivalent valuation methods — know all three and which the question is asking for: **(1) Replication** — build Δ shares + $B bank so payoff matches the option in both states; option price = construction cost. `Δ = (Cu-Cd)/(S0*u - S0*d)`. **(2) Delta hedging** — Δ shares + one short option, chosen so portfolio value is riskless in both states; discount that certain value at r to get PV, back out option price. **(3) Risk-neutral** (Week 9) — see below. Multi-period: branch length `h = T/N`; re-derive u, d, p* fresh for the new h (they are NOT the same as the 1-step tree's u, d). |
+| 9 | Binomial trees II | **Risk-neutral valuation**: pretend all assets grow at r (world is risk-neutral) — this gives the *same* price as the real world under risk aversion, but the arithmetic is simpler. `p* = (e^{rh} - d)/(u - d)`; option value = `e^{-rh} × [p*×payoff_up + (1-p*)×payoff_down]`, applied recursively backward through the tree for multi-step. Path-probability approach: sum discounted expected payoff over all paths (binomial coefficients for how many paths reach each terminal node). **American options**: at every node, value = max(continuation value, intrinsic/exercise value) — exercise early whenever intrinsic value exceeds the discounted expected continuation value (classic case: American put deep ITM with high r). |
+| 10 | Exotic options | All are **path-dependent** — price with a binomial tree + risk-neutral approach, tracking the relevant path statistic at each node. Lookback (floating: strike = realized Smin/Smax; fixed: strike fixed, payoff uses Smax/Smin instead of ST). Asian (payoff uses average price over the period, not ST). Bermudan (early exercise allowed only on specified dates — between European and American). Ratchet/reset (strike changes on a schedule — value as a portfolio of options with different K). Chooser (holder picks call or put at a set future date — path dependent on which way price has moved by then). Compound (option on an option — 2 strikes, 2 expiries; call-on-call, put-on-call, call-on-put, put-on-put). Barrier: knock-in (dead until barrier hit) vs knock-out (alive until barrier hit), each further split up/down-and-in/out — must check the barrier condition at every node along the path, not just the terminal payoff. |
+| 11 | Dividends & Swaps | See `slides 5.pdf` — dividend-adjusted forward pricing (`F = (S0 - PV(dividends)) e^{rT}` for known cash dividends, or `F = S0 e^{(r-q)T}` for a continuous yield q) and swap valuation (as a portfolio of forward contracts, or as a bond-difference: `V_swap = B_fixed - B_floating`). Confirm exact slide content before answering — this week is least covered in the extracted exam-point notes. |
+
+## Working a calculation/case question
+
+1. **Classify first**: which instrument (forward/futures/option/exotic), long or short, hedge or speculate or price? Case-analysis questions on the final often bury this — read for the underlying risk before reaching for a formula.
+2. **State the formula before substituting numbers** — the course explicitly rewards workings, and a wrong number with the right formula shown partial-credits far better than a bare answer.
+3. **For pricing questions**: default to the replication argument (borrow-and-buy for a long forward/futures; Δ-shares + bank for options) unless the question specifically asks for the risk-neutral method — showing *why* the price is right (no-arbitrage) scores better than a plugged formula alone.
+4. **For binomial trees**: write out u, d, h, p* explicitly at the top before touching the tree; for American-style, evaluate exercise-vs-hold at every single node on the way back, not just at the final answer node.
+5. **For strategy/payoff questions**: build a small payoff table (leg by leg, then summed) rather than reasoning about the combined payoff directly — this is also how the Study Notes present bull/bear/straddle/strangle examples.
+6. **Finish with interpretation**: state what the number means (over/underpriced → arbitrage direction; ITM/OTM; net debit/credit; max gain/loss/breakeven) — the final exam's answers are "phrased obliquely," meaning it usually wants the interpretation, not just the number.
+
+## Exam-format notes (from senior student debrief)
+
+- MST (40%) is closer to textbook-standard MCQ; final (60%) is case-analysis and noticeably harder — problems are phrased indirectly and require genuinely understanding what each concept means, not just how to compute it. Don't treat MST performance as a reliable predictor of final readiness.
+- If sitting the final on the SC/Telescope platform with image uploads (handwritten workings), leave 15+ minutes at the end to upload and organize answers — the platform is strict about technical issues and a late/failed upload can zero a question with no resit.
+- Study approach that worked: do lots of practice questions and build intuition for which "playbook" (formula/strategy) a question is pointing at on sight; keep tidy running notes per topic; make sure every core concept/definition is solid, since concept clarity is what the final actually tests, not just computational speed.
+
+## Guardrails
+
+- Never skip stating u, d, p*, h when using a binomial tree — recomputing implicitly and only showing the final number is the single most common way marks are lost on this course's tree questions.
+- Don't confuse forward price (F, set so contract has zero value at initiation) with the *value* of an existing forward position (which moves as spot moves) — case questions frequently ask for the latter after giving the former.
+- Always check whether the underlying pays dividends/carrying costs before applying the plain `F = S0 e^{rT}` formula — using it on a dividend-paying stock or a commodity with storage costs is a common error.
+- For exotic/path-dependent options, don't price off the terminal payoff alone — barrier and lookback options require checking the condition/statistic along the whole path, and multiple paths can reach the same terminal node with different validity (e.g. one hits the barrier, one doesn't).
+- When a question gives case-specific numbers, use them exactly (don't round intermediate steps prematurely) — small rate/price rounding compounds badly through binomial trees and BS formulas.
+
+## Output
+
+Depending on what's asked: a worked solution (formula stated → substitution → answer → one-line interpretation), a concept explanation grounded in the relevant week's material above, or a short practice set with answers when asked to self-test on a topic — pulling exact figures from the Questions/Answers PDFs or Study Notes when the built-in content map isn't specific enough.
